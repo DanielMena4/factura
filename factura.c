@@ -19,8 +19,9 @@ int validacion(char cedula[11])
 
 int cedulan(char cedula[11])
 {
-    int aux,aux2,snum, par;
+    int aux,aux2,aux3,snum, par;
     aux = atoi(cedula);
+    aux3 = 0;
     par = 0;
     snum = aux % 10;
     aux = aux / 10;
@@ -31,26 +32,28 @@ int cedulan(char cedula[11])
                 if(2*(aux % 10)>10)
                 {
                     aux2 = 2*(aux%10);
-                    aux+= aux2%10;
+                    aux3+= aux2%10;
                     aux2 = aux2 / 10;
-                    aux+= aux2%10;
+                    aux3+= aux2%10;
+                    aux = aux /10;
+                    par = 1;
                 }
                     else
                 {
-                    aux+= 2 * (aux % 10); 
+                    aux3+= 2 * (aux % 10);
+                    aux = aux /10;
+                    par = 1;
                 }
-                aux = aux /10;
-                par = 1;
             }
             else
             {
-                aux+= aux%10;
+                aux3+= aux%10;
                 par = 0;
                 aux= aux/10;
             }
         }
-    aux = 10 - (aux % 10);
-    if(snum == aux)
+    aux3 = 10 - (aux3 % 10);
+    if(snum == aux3)
     {
         return 1;
     }
@@ -69,7 +72,14 @@ int num;
         return 0;
     }
     num = cedulan(cedula);
-    return 1;
+    if (num == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 int main(){
